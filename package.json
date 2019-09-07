@@ -1,0 +1,19 @@
+{
+  "name": "skilldevelopmentproject",
+  "version": "1.0.0",
+  "description": "Develop skills with this handy webapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KristianBonitz/SkillDevelopmentProject.git"
+  },
+  "author": "Kristian Bonitz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KristianBonitz/SkillDevelopmentProject/issues"
+  },
+  "homepage": "https://github.com/KristianBonitz/SkillDevelopmentProject#readme"
+}

@@ -1,0 +1,101 @@
+<head>
+    <style type="text/css" src='/style.css'></style>
+    <title>Timing App - Vue.js</title>
+</head>
+<body>
+    <div id="app">
+      {{ message }}
+    </div>
+
+    <div id="app-2">
+      <span v-bind:title="message">
+        Hover your mouse over me for a few seconds
+        to see my dynamically bound title!
+      </span>
+    </div>
+
+    <div id="app-3">
+        <span v-if="seen">This message is visible?</span>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.title }}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <span>{{ message }}</span>
+        <button v-on:click="reversemessage">Reverse!</button>
+    </div>
+
+    <div id="app-6">
+        <span>{{ message }}</span>
+        <input type="text" v-model="message">
+    </div>
+
+    <ol>
+        <todo-item></todo-item>
+    </ol>
+
+    <script src="vue/dist/vue.js"></script>
+    <script type="text/javascript">
+
+        Vue.component('todo-item', {
+            template: "<li>This is a todo</li>"
+        })
+
+        var app6 = new Vue({
+            el: '#app-6',
+            data: {
+                message: "Hello User!"
+            }
+        });
+
+        var app5 = new Vue({
+            el: '#app-5',
+            data: {
+                message: "Kayak on kayak Mountain."
+            },
+            methods: {
+                reversemessage: function(){
+                    this.message = this.message.split('').reverse().join('');
+                }
+            }
+        });
+
+        var app = new Vue({
+          el: '#app',
+          data: {
+            message: 'Hello Vue!'
+          }
+        });
+
+        var app2 = new Vue({
+          el: '#app-2',
+          data: {
+            message: 'You loaded this page on ' + new Date().toLocaleString()
+          }
+        });
+
+        var app3 = new Vue({
+            el: '#app-3',
+            data: {
+                seen: true
+            }
+        });
+
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos: [
+                    { title: "Make flour" },
+                    { title: "Make dough" },
+                    { title: "Make bread" },
+                ]
+            }
+        })
+    </script>
+</body>
