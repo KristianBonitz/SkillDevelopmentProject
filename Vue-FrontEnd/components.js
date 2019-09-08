@@ -49,12 +49,6 @@ Vue.component('activity-timer-controls',{
         "<button \n" +
         "v-if='inProgress'\n" +
         "v-on:click=\'$emit(\"stop\")\'>Stop</button>\n" +
-        "<button \n" +
-        "v-if='!isRunning'\n" +
-        "v-on:click=\'$emit(\"pause\")\'>Pause</button>\n" +
-        "<button \n" +
-        "v-if='isRunning'\n" +
-        "v-on:click=\'$emit(\"play\")\'>Play</button>\n"+
         "</div>"
 });
 
