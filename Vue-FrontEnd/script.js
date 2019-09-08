@@ -1,4 +1,10 @@
-//var listOfActivities = ;
+//TODO: How to use outside API for activity list
+
+function StartClock(){
+  clock = window.setInterval(checkTime, 1000);
+  drillsActive = true;
+  updateTimer();
+}
 
 Vue.component('activity-title', {
     props: ['activity'],
@@ -15,29 +21,65 @@ Vue.component('activity-clock', {
     template: "<h2>{{ time.hour ? time.hour.toString().padStart(2, '0') + ':' : '' }}{{ time.minute.toString().padStart(2, '0') }}:{{ time.second.toString().padStart(2, '0') }}</h2>"
 });
 
-var activityTimer = new Vue({
-    el: '#activity-timer',
-    data: {
-        time: { hour: 0, minute: 2, second: 0 },
-        activity: {
-            id: 5,
-            name: 'Reverse Fountain',
-            objects: {count: 4, name: 'Balls'},
-            learningStage: 1, // 1: improving
-            tags: ['numbers', 'warm-up']
-        }
-    }
-});
-
-Vue.component('activity-title', {
-    props: ['todo'],
-    template: "<li>{{ todo.text }}</li>"
+Vue.component('activity-timer-display',{
+    props:['time', 'activity'],
+    template:   "<div id='activity-timer'><activity-title" + 
+                "v-bind:activity='activity'\n" +
+                "v-bind:key='activity.id'>\n"  +
+                "</activity-title>\n" +
+                "<activity-clock\n" + 
+                "v-bind:time='time'>\n"+
+                "</activity-clock></div>\n"
 });
 
 Vue.component('activity-item', {
     props: ['activity'],
-    template: "<li>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }}</li>" //TODO: add time length for {{ getTime(activity.learningStage) }}
+    template: "<li>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }}</li>" 
+    //TODO: add time length for {{ getTime(activity.learningStage) }}
 });
+
+Vue.component('skip-button', {
+    template: "<button>Skip</button>"
+});
+Vue.component('restart-button', {
+    template: "<button>Restart</button>"
+});
+Vue.component('pauseplay-button', {
+    template: "<button>Pause/Play</button>"
+});
+var activityTimerControls = new Vue({
+    el:'#activity-timer-controls',
+    data:{
+        clock: {},
+        isActive: false
+    },
+    methods: {
+        startTime: function(){
+            this.clock = window.setInterval(this.updateTime, 1000);
+            this.isActive = true;
+        },
+        stopTime: function(){
+            clearInterval(this.clock);
+            this.isActive = false;
+        },
+        updateTime: function(){
+            if(this.time.hour <= 0 && this.time.minute <= 0 && this.time.second <= 0){
+                clearInterval(this.clock);
+                //TODO: add start next activity if others exist or stop everything
+            }
+            if(this.time.second > 0){
+                this.time.second--;
+            }else if(this.time.minute > 0){
+                this.time.minute--;
+                this.time.second = 59;
+            }else if(this.time.hour > 0){
+                this.time.hour--;
+                this.time.minute = 59;
+                this.time.second = 59;
+            }
+        }
+    }
+})
 
 var activityList = new Vue({
     el: '#activity-list',
