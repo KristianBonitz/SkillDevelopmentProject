@@ -6,7 +6,7 @@
     <title>Timing App - Vue.js</title>
 </head>
 <body>
-    <app>
+    <div id='app'>
         <!-- 
             The nav will currently do nothing until the backend has been built out 
         -->
@@ -15,36 +15,33 @@
         <!-- 
             Timer will cycle through each of the tasks until it reaches the end.  
         -->
-        <activity-timer-display>
+        <activity-timer-display
+        v-bind:time='time'
+        v-bind:activity='activityList[activeActivity]'>
         </activity-timer-display>
 
-        <div id='activity-timer-controls'>
-            <skip-button></skip-button>
-            <restart-button></restart-button>
-            <button 
-            v-if='!isActive'
-            v-on:click='startTime'>Start</button>
-            <button 
-            v-else
-            v-on:click='stopTime'>Stop</button>
-            <pauseplay-button></pauseplay-button>
-        </div>
+        <activity-timer-controls
+        v-bind:in-progress='inProgress'
+        v-bind:is-running='isRunning'
+        v-on:start='startTime'
+        v-on:stop='stopTime'
+        v-on:pause='isRunning = true'
+        v-on:play='isRunning = false'>
+        </activity-timer-controls>
         
         <!-- 
             The Task List lists each timing item - with the current activity highlighted. 
         -->
-        <div id='activity-list'>
-            <ol><activity-item 
-            v-for='activity in activityList' 
-            v-bind:activity='activity'
-            v-bind:key='activity.id'></activity-item>
-            </ol>
-        </div>
-
+        <activity-list
+        v-bind:activity-list='activityList'>
+        </activity-list>
         <div id='activity-add'></div>
-    </app>
+    </div>
+    <div id='activity-list'>
+        
+    </div>
 
     <script src="vue/dist/vue.js"></script>
-    <script type="text/javascript" src="script.js">
-    </script>
+    <script type="text/javascript" src="components.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 </body>
