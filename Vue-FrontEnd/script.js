@@ -82,18 +82,18 @@ var app = new Vue({
             var activity = this.activityList[this.activeActivity];
             console.log(activity.learningStage);
             console.log(activity.custom.time);
-
-            if(activity.custom.time){
-                var timeObj = activity.custom.time;
-                this.time = { hour: timeObj.hour, minute: timeObj.minute, second: timeObj.second };
-            }else if(activity.learningStage == 3){ //maintaining
-                this.time = { hour: 0, minute: 0, second: 30 };
-            }else if(activity.learningStage == 2){ //improving
-                this.time = { hour: 0, minute: 1, second: 15 };
-            }else if(activity.learningStage == 1){ //learning
-                this.time = { hour: 0, minute: 2, second: 30 };
-            }else if(activity.learningStage == 0){ //custom
-                this.time = { hour: 0, minute: 0, second: 0 };
+            var tempTime = learningTimes(activity.learningStage);
+            if(tempTime){
+                console.log("set by stage");
+                this.time = tempTime;
+            }else{
+                console.log("set by custom")
+                if(activity.custom.time){
+                    var tObj = activity.custom.time;
+                    this.time = { hour: tObj.hour, minute: tObj.minute, second: tObj.second }
+                }else{
+                    console.error("Time not settable")
+                }
             }
         },
         resetActivities: function(){
@@ -107,3 +107,16 @@ var app = new Vue({
         }
     }
 });
+
+function learningTimes(stage){
+    if(stage == 3){ //maintaining
+        return { hour: 0, minute: 0, second: 30 };
+    }else if(stage == 2){ //improving
+        return { hour: 0, minute: 1, second: 15 };
+    }else if(stage == 1){ //learning
+        return { hour: 0, minute: 2, second: 30 };
+    }else if(stage == 0){ //custom
+        return false;
+    }
+}
+

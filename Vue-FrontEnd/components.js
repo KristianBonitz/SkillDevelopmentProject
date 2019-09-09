@@ -4,16 +4,6 @@ Vue.component('activity-clock', {
     template: "<h2>{{ time.hour ? time.hour.toString().padStart(2, '0') + ':' : '' }}{{ time.minute.toString().padStart(2, '0') }}:{{ time.second.toString().padStart(2, '0') }}</h2>"
 });
 
-Vue.component('skip-button', {
-    template: "<button>Skip</button>"
-});
-Vue.component('restart-button', {
-    template: "<button>Restart</button>"
-});
-Vue.component('pauseplay-button', {
-    template: "<button>Pause/Play</button>"
-});
-
 Vue.component('activity-title', {
     props: ['activity'],
     template: "<div><h2>{{ activity.name }}</h2>\n" +
