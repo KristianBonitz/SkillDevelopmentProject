@@ -43,16 +43,17 @@ Vue.component('activity-timer-controls',{
 });
 
 Vue.component('activity-list',{
-    props:['activityList'],
+    props:['activityList', 'activeActivity'],
     template: "<ol><activity-item \n" +
         "v-for='activity in activityList' \n" +
         "v-bind:activity='activity'\n" +
+        "v-bind:is-active='activity.id == activeActivity'\n" +
         "v-bind:key='activity.id'></activity-item>\n" +
         "</ol>"
 });
 
 Vue.component('activity-item', {
-    props: ['activity'],
-    template: "<li>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }}</li>" 
+    props: ['activity', 'isActive'],
+    template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }}</li>" 
     //TODO: add time length for {{ getTime(activity.learningStage) }}
 });

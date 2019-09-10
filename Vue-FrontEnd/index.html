@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <style type="text/css" src='/style.css'></style>
+    <link rel="stylesheet" href="style.css">
     <title>Timing App - Vue.js</title>
 </head>
 <body>
@@ -33,7 +33,8 @@
             The Task List lists each timing item - with the current activity highlighted. 
         -->
         <activity-list
-        v-bind:activity-list='activityList'>
+        v-bind:activity-list='activityList'
+        v-bind:active-activity='activeActivity'>
         </activity-list>
         <div id='activity-add'></div>
     </div>
