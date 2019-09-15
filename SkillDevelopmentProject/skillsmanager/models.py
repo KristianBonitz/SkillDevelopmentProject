@@ -16,8 +16,7 @@ class Skill(models.Model):
 	"""
 	Skill: 
 	To be added: 
-	Description === >= <=  ==> -> >
-
+	
 	"""
 	skill_name = models.CharField(max_length=200)
 	user = models.ForeignKey(User)
