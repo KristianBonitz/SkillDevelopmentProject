@@ -42,6 +42,9 @@ var app = new Vue({
             }
         ],
     },
+    created: function(){
+        this.restartClock();    
+    },
     methods: {
         startTime: function(){
             console.log('start');
