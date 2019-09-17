@@ -58,3 +58,5 @@ docs/_build/
 target/
 
 Vue-FrontEnd/vue/
+
+node_modules/
