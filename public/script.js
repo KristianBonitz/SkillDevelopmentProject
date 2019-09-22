@@ -13,6 +13,7 @@ var app = new Vue({
                 id: 0,
                 name: 'Fountain',
                 objects: { count: 4, name: 'Ball' },
+                //userdata
                 learningStage: 2,
                 tags: ['numbers', 'warm-up'],
                 custom: {}
