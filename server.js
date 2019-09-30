@@ -1,8 +1,11 @@
 var express = require('express');
 var path = require('path'); 
+const cors = require('cors');
 const { Pool, Client } = require('pg');
 var app = express();
 const port = 5432;
+
+app.use(cors());
 
 app.listen(port, () => console.log("App listening on port: ", port));
 
@@ -18,10 +21,6 @@ pool.query('CREATE TABLE IF NOT EXISTS activities( id serial PRIMARY KEY, user_i
     (err, res) => {
     console.log(err, res)
 });
-pool.query('INSERT INTO activities (user_id, name, object_name, object_count, difficulty_grade, learning_stage, siteswap) VALUES($1, $2, $3, $4, $5, $6, $7) ',
-    [1,'Mills Mess','Ball',3,1,3,'3'], (err, res) => {
-    console.log(err, res)
-});
 
 app.get('/getData', (req, res) => {
     pool.query('SELECT * FROM activities', (err, result) => {
@@ -31,19 +30,19 @@ app.get('/getData', (req, res) => {
         res.status(200).json(result.rows);
     })
 });
-console.log(__dirname);
+
 app.use(express.static("./"));
 
 app.get('/', (req, res) => {
     var options = {
-        root: path.join(__dirname, 'public'),
+        root: path.join(__dirname, 'views/'),
         dotfiles: 'deny',
         headers: {
           'x-timestamp': Date.now(),
           'x-sent': true
         }
     }
-    res.sendFile("views/index.html", options, (err) => {
+    res.sendFile("index.html", options, (err) => {
         err ? console.log(err) : console.log("Sent index.html")
     });
 });

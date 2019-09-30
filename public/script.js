@@ -3,48 +3,35 @@
 var app = new Vue({
     el: '#app',
     data: {
-        time: {hour: 0, minute: 2, second: 0},
+        time: {hour: 0, minute: 0, second: 0},
         clock: 0,
         isRunning: false,
         inProgress: false,
         activeActivity: 0,
-        activityList: [
-            { //activity
-                id: 0,
-                name: 'Fountain',
-                objects: { count: 4, name: 'Ball' },
-                //userdata
-                learningStage: 2,
-                tags: ['numbers', 'warm-up'],
-                custom: {}
-            },{ //activity
-                id: 1,
-                name: 'Push-ups',
-                objects: {}, //none
-                learningStage: 0, // 1: use custom
-                tags: ['physical', 'warm-up'],
-                custom:{
-                    time: { hour: 0, minute: 0, second: 30 }
-                }
-            },{ //activity
-                id: 2,
-                name: 'Mills Mess',
-                objects: { count: 4, name: 'Club' }, //none
-                learningStage: 1, // 1: learning
-                tags: ['Mills-Mess', 'life-goals'],
-                custom:{}
-            },{ //activity
-                id: 3,
-                name: 'Cascade',
-                objects: { count: 3, name: 'Ball' }, //none
-                learningStage: 3, // 3: maintaing
-                tags: ['easy', 'life-goals'],
-                custom:{}
-            }
-        ],
+        activityList: [],
+        activity: 0
     },
     created: function(){
-        this.restartClock();    
+        //this.restartClock();    
+    },
+    mounted () {
+        axios
+          .get('http://localhost:5432/getData') //todo: add in user id
+          .then(response => {
+            for (var i = 0; i < response.data.length; i++) {
+                var aFormat = {
+                    id: i,
+                    name: response.data[i].name,
+                    objects: { count: response.data[i].object_count, name: response.data[i].object_name }, //none
+                    learningStage: response.data[i].learning_stage, // 3: maintaing
+                    //siteswap
+                    tags: [],
+                    custom:{}
+                }
+                this.activityList.push(aFormat)
+                this.restartClock();  
+            }
+        })
     },
     methods: {
         startTime: function(){
@@ -82,21 +69,21 @@ var app = new Vue({
             }
         },
         restartClock: function(){
-            console.log('restart');
+            console.log('action: restart clock');
+            console.log('activity:', this.activityList[this.activeActivity]);
+
             var activity = this.activityList[this.activeActivity];
-            console.log(activity.learningStage);
-            console.log(activity.custom.time);
             var tempTime = learningTimes(activity.learningStage);
             if(tempTime){
-                console.log("set by stage");
+                console.log("time set by learning stage");
                 this.time = tempTime;
             }else{
-                console.log("set by custom")
+                console.log("time set by custom")
                 if(activity.custom.time){
                     var tObj = activity.custom.time;
                     this.time = { hour: tObj.hour, minute: tObj.minute, second: tObj.second }
                 }else{
-                    console.error("Time not settable")
+                    console.error("time not settable")
                 }
             }
         },
