@@ -65,8 +65,12 @@ Vue.component('activity-list',{
 Vue.component('activity-item', {
     props: ['activity', 'isActive'],
     data: function(){
-        return { time: this.activity.time.hour }
+        return { time: formatTime(this.activity.time) }
     },
-    template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }} - {{ activity.time }}</li>" 
+    template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }} - {{ time }}</li>" 
     //TODO: add time length for {{ learningTimes(activity.learningStage) }}
 });
+
+function formatTime(tObj){
+    return tObj.hour ? tObj.hour.toString().padStart(2, '0') + ':' : '' + tObj.minute.toString().padStart(2, '0')  + ':' + tObj.second.toString().padStart(2, '0')
+}
