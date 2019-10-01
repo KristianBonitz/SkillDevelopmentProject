@@ -1,4 +1,6 @@
-//TODO: How to use outside API for activity list
+//TODO: Track total time for activities to be run through
+//TODO: Return to database the amount of time, user has spent on activity X
+//TODO: List total time done during activity.
 
 var app = new Vue({
     el: '#app',
@@ -9,12 +11,21 @@ var app = new Vue({
         inProgress: false,
         activeActivity: 0,
         activityList: [],
-        activity: 0
+        activity: {
+            id: 0,
+            name: "",
+            description: "",
+            objects: { count: 0, name: "" }, 
+            learningStage: 0, 
+            time: {hour: 0, minute: 0, second: 0},
+            tags: [],
+            custom:{}
+        }
     },
     created: function(){
         //this.restartClock();    
     },
-    mounted () {
+    mounted: function(){
         axios
           .get('http://localhost:5432/getData') //todo: add in user id
           .then(response => {
@@ -22,9 +33,10 @@ var app = new Vue({
                 var aFormat = {
                     id: i,
                     name: response.data[i].name,
+                    description: "",
                     objects: { count: response.data[i].object_count, name: response.data[i].object_name }, //none
                     learningStage: response.data[i].learning_stage, // 3: maintaing
-                    //siteswap
+                    time: learningTimes(response.data[i].learning_stage), //siteswap
                     tags: [],
                     custom:{}
                 }
@@ -72,27 +84,17 @@ var app = new Vue({
             console.log('action: restart clock');
             console.log('activity:', this.activityList[this.activeActivity]);
 
-            var activity = this.activityList[this.activeActivity];
-            var tempTime = learningTimes(activity.learningStage);
-            if(tempTime){
-                console.log("time set by learning stage");
-                this.time = tempTime;
-            }else{
-                console.log("time set by custom")
-                if(activity.custom.time){
-                    var tObj = activity.custom.time;
-                    this.time = { hour: tObj.hour, minute: tObj.minute, second: tObj.second }
-                }else{
-                    console.error("time not settable")
-                }
-            }
+            this.activity = this.activityList[this.activeActivity];
+            var tObj = this.activity.time;
+            this.time = { hour: tObj.hour, minute: tObj.minute, second: tObj.second }
         },
         resetActivities: function(){
+            console.log('action: restart activities'); 
             this.activeActivity = 0;
             this.restartClock();
         },
         skipActivity: function(){
-            console.log('skip'); 
+            console.log('action: skip activity'); 
             this.time = { hour: 0, minute: 0, second: 0 };
             this.updateTime();
         }

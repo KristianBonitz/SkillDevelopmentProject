@@ -16,7 +16,16 @@ Vue.component('activity-title', {
 });
 
 Vue.component('activity-timer-display',{
-    props:['time', 'activity'],
+    props: {
+        time: {
+            type: Object,
+            required: true
+        },
+        activity: {
+            type: Object,
+            required: true
+        }
+    },
     template: 
         "<div id='activity-timer'><activity-title\n" + 
         "v-bind:activity='activity'\n" +
@@ -56,8 +65,8 @@ Vue.component('activity-list',{
 Vue.component('activity-item', {
     props: ['activity', 'isActive'],
     data: function(){
-        return { length: 0 }
+        return { time: this.activity.time.hour }
     },
-    template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }} - {{ length }}</li>" 
+    template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }} - {{ activity.time }}</li>" 
     //TODO: add time length for {{ learningTimes(activity.learningStage) }}
 });
