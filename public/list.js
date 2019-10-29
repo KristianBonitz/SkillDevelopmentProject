@@ -45,7 +45,6 @@ var app = new Vue({
 var app = new Vue({
     el: '#add',
     data: {
-        activityList: [],
         activity: {
             id: 0,
             name: "",
@@ -61,22 +60,7 @@ var app = new Vue({
         //this.restartClock();    
     },
     mounted: function(){
-        axios
-          .get('http://localhost:5432/getData') //todo: add in user id
-          .then(response => {
-            for (var i = 0; i < response.data.length; i++) {
-                var aFormat = {
-                    id: i,
-                    name: response.data[i].name,
-                    description: "",
-                    objects: { count: response.data[i].object_count, name: response.data[i].object_name }, //none
-                    learningStage: response.data[i].learning_stage, // 3: maintaing
-                    tags: [],
-                    custom:{}
-                }
-                this.activityList.push(aFormat)
-            }
-        })
+
     },
     methods: {
     }

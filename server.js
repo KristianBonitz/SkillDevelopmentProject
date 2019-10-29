@@ -1,11 +1,14 @@
 var express = require('express');
 var path = require('path'); 
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const { Pool, Client } = require('pg');
 var app = express();
 const port = 5432;
 
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 app.listen(port, () => console.log("App listening on port: ", port));
 
@@ -59,4 +62,9 @@ app.get('/list', (req, res) => {
     res.sendFile("trickList.html", options, (err) => {
         err ? console.log(err) : console.log("Sent activityList.html")
     });
+});
+
+app.post('/addTrick', (req, res) => {
+    console.log('add trick - post request recieved')
+    console.log(req.body)
 });
