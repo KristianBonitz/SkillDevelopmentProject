@@ -71,6 +71,20 @@ Vue.component('activity-item', {
     //TODO: add time length for {{ learningTimes(activity.learningStage) }}
 });
 
+Vue.component('trick-list',{
+    props:['trickList'],
+    template: "<ul><trick-item \n" +
+        "v-for='trick in trickList' \n" +
+        "v-bind:trick='trick'\n" +
+        "v-bind:key='trick.id'></trick-item>\n" +
+        "</ul>"
+});
+
+Vue.component('trick-item', {
+    props: ['trick'],
+    template: "<li>{{ trick.objects.count }} {{ trick.objects.name }} {{ trick.name }} - {{ trick.learningStage }}</li>" 
+});
+
 function formatTime(tObj){
     return tObj.hour ? tObj.hour.toString().padStart(2, '0') + ':' : '' + tObj.minute.toString().padStart(2, '0')  + ':' + tObj.second.toString().padStart(2, '0')
 }

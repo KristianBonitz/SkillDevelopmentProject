@@ -46,3 +46,17 @@ app.get('/', (req, res) => {
         err ? console.log(err) : console.log("Sent index.html")
     });
 });
+
+app.get('/list', (req, res) => {
+    var options = {
+        root: path.join(__dirname, 'views/'),
+        dotfiles: 'deny',
+        headers: {
+          'x-timestamp': Date.now(),
+          'x-sent': true
+        }
+    }
+    res.sendFile("trickList.html", options, (err) => {
+        err ? console.log(err) : console.log("Sent activityList.html")
+    });
+});

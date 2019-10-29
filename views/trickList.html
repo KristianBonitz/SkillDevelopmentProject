@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../public/style.css">
+    <title>Timing App - Vue.js</title>
+</head>
+<body>
+    <div id='app'>
+        <!-- 
+            The nav will currently do nothing until the backend has been built out 
+        -->
+        <!-- <nav></nav> -->
+        <h1>Tricks List</h1>
+        <!-- 
+            Timer will cycle through each of the tasks until it reaches the end.  
+        -->
+        <trick-list
+        v-bind:trick-list='activityList'>
+        </trick-list>
+
+    </div>
+
+    <div class="add">
+        <h2>Add Tricks</h2>
+        <add-trick></add-trick>
+    </div>
+
+    <script src="../public/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="../public/components.js"></script>
+    <script type="text/javascript" src="../public/list.js"></script>
+</body>

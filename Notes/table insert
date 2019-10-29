@@ -1,0 +1,17 @@
+INSERT INTO activities (user_id,name,object_name,object_count,difficulty_grade,learning_stage,siteswap,description)
+VALUES 
+(1,'Columns: Overthrow Variation','Ball',3,3,1,'(4,4)(4x,0)*','https://libraryofjuggling.com/Tricks/3balltricks/ColumnOverVar.html'),
+(1,'Rainbow Cross','Ball',3,3,1,'(4x,4x)(4,0)','https://libraryofjuggling.com/Tricks/3balltricks/RainbowCross.html'),
+(1,'Shuffle-Switch','Ball',3,3,3,'(4,4)(6,0)(2x,2x)','https://libraryofjuggling.com/Tricks/3balltricks/Shuffle-Switch.html'),
+(1,'Factory','Ball',3,3,2,'(2,4)(2,4x)(2x,4)','https://libraryofjuggling.com/Tricks/3balltricks/Factory.html'),
+(1,'Fake Mess','Ball',3,3,1,'423','https://libraryofjuggling.com/Tricks/3balltricks/FakeMess.html')
+
+(1,'Fake Columns','Ball',3,2,3,'(4,2)','https://libraryofjuggling.com/Tricks/3balltricks/FakeColumns.html'),
+(1,'Yo-Yo','Ball',3,2,1,'(4,2)','https://libraryofjuggling.com/Tricks/3balltricks/Yo-Yo.html'),
+(1,'Oy-Oy','Ball',3,2,1,'(4,2)','https://libraryofjuggling.com/Tricks/3balltricks/Oy-Oy.html'),
+(1,'Juggler''s Tennis','Ball',3,2,3,'3','https://libraryofjuggling.com/Tricks/3balltricks/JugglersTennis.html'),
+(1,'423','Ball',3,2,3,'423','https://libraryofjuggling.com/Tricks/3balltricks/423.html'),
+(1,'The W','Ball',3,2,3,'423','https://libraryofjuggling.com/Tricks/3balltricks/TheW.html'),
+(1,'Half-Shower','Ball',3,3,3,'3','https://libraryofjuggling.com/Tricks/3balltricks/Half-Shower.html'),
+(1,'Columns','Ball',3,3,3,'(4,4)(4,0)','https://libraryofjuggling.com/Tricks/3balltricks/Columns.html'),
+(1,'Infinity','Ball',3,3,2,'(4,4)(4,0)*','https://libraryofjuggling.com/Tricks/3balltricks/Infinity.html'),
