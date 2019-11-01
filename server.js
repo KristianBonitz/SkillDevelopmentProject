@@ -25,6 +25,29 @@ pool.query('CREATE TABLE IF NOT EXISTS activities( id serial PRIMARY KEY, user_i
     console.log(err, res)
 });
 
+function createTrick(trick) {
+    console.log(trick);
+    if (!trick){
+        console.error("object is null");
+    }else{
+        text = "INSERT INTO activities (user_id,name,object_name,object_count,difficulty_grade,learning_stage,siteswap,description) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)";
+        values = [1, 
+        trick.name ? trick.name : Error('trick name value is null') , 
+        trick.objectName ? trick.objectName : null, 
+        trick.objectCount ? trick.objectCount : null, 
+        trick.difficulty ? trick.difficulty : null, 
+        0,
+        trick.siteswap ? trick.siteswap : null, 
+        '' ];
+        pool.query(text, values, (err, result) => {
+            if( err ){
+                throw err;
+            }
+            return result.rows;
+        }) 
+    }
+}
+
 app.get('/getData', (req, res) => {
     pool.query('SELECT * FROM activities', (err, result) => {
         if( err ){
@@ -66,5 +89,7 @@ app.get('/list', (req, res) => {
 
 app.post('/addTrick', (req, res) => {
     console.log('add trick - post request recieved')
-    console.log(req.body)
+    console.log(req)
+    output = createTrick(req.body)
+    res.redirect('\list')
 });
