@@ -1,5 +1,11 @@
 //import learningTimes from "script.js";
 //TIMER COMPONENTS
+Vue.component('timer', {
+    created: function(){
+        this.restartClock();
+    }
+})
+
 Vue.component('activity-clock', {
     props: ['time'],
     template: "<h2>{{ time.hour ? time.hour.toString().padStart(2, '0') + ':' : '' }}{{ time.minute.toString().padStart(2, '0') }}:{{ time.second.toString().padStart(2, '0') }}</h2>"
