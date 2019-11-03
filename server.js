@@ -73,6 +73,20 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/timer', (req, res) => {
+    var options = {
+        root: path.join(__dirname, 'views/'),
+        dotfiles: 'deny',
+        headers: {
+          'x-timestamp': Date.now(),
+          'x-sent': true
+        }
+    }
+    res.sendFile("timer.html", options, (err) => {
+        err ? console.log(err) : console.log("Sent timer.html")
+    });
+});
+
 app.get('/list', (req, res) => {
     var options = {
         root: path.join(__dirname, 'views/'),
@@ -82,8 +96,8 @@ app.get('/list', (req, res) => {
           'x-sent': true
         }
     }
-    res.sendFile("trickList.html", options, (err) => {
-        err ? console.log(err) : console.log("Sent activityList.html")
+    res.sendFile("list.html", options, (err) => {
+        err ? console.log(err) : console.log("Sent list.html")
     });
 });
 

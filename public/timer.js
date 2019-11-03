@@ -109,7 +109,8 @@ function learningTimes(stage){
     }else if(stage == 1){ //learning
         return { hour: 0, minute: 2, second: 30 };
     }else if(stage == 0){ //custom
-        return false;
+        console.error('activity has no status')
+        return { hour: 0, minute: 0, second: 0 };;
     }
 }
 

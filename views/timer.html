@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../public/style.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+
+    <title>Timing App - Vue.js</title>
+</head>
+<body>
+    <div id='app' class="container">
+        <!-- 
+            The nav will currently do nothing until the backend has been built out 
+        -->
+        <!-- <nav></nav> -->
+        <h1>Timer application</h1>
+        <!-- 
+            Timer will cycle through each of the tasks until it reaches the end.  
+        -->
+        <activity-timer-display
+        v-bind:time='time'
+        v-bind:activity='activity'>
+        </activity-timer-display>
+
+        <activity-timer-controls
+        v-bind:in-progress='inProgress'
+        v-bind:is-running='isRunning'
+        v-on:start='startTime'
+        v-on:stop='stopTime'
+        v-on:restart='restartClock'
+        v-on:skip='skipActivity'>
+        </activity-timer-controls>
+        
+        <!-- 
+            The Task List lists each timing item - with the current activity highlighted. 
+        -->
+        <activity-list
+        v-bind:activity-list='activityList'
+        v-bind:active-activity='activeActivity'>
+        </activity-list>
+        <div id='activity-add'></div>
+    </div>
+
+    <script src="../public/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="../public/components.js"></script>
+    <script type="text/javascript" src="../public/timer.js"></script>
+</body>

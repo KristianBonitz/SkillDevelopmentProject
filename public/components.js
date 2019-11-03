@@ -1,5 +1,5 @@
 //import learningTimes from "script.js";
-
+//TIMER COMPONENTS
 Vue.component('activity-clock', {
     props: ['time'],
     template: "<h2>{{ time.hour ? time.hour.toString().padStart(2, '0') + ':' : '' }}{{ time.minute.toString().padStart(2, '0') }}:{{ time.second.toString().padStart(2, '0') }}</h2>"
@@ -70,6 +70,8 @@ Vue.component('activity-item', {
     template: "<li v-bind:class='{ active: isActive }'>{{ activity.objects.count }} {{ activity.objects.name }} {{ activity.name }} - {{ time }}</li>" 
     //TODO: add time length for {{ learningTimes(activity.learningStage) }}
 });
+
+// LIST COMPONENTS
 
 Vue.component('trick-list',{
     props:['trickList'],
