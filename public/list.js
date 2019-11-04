@@ -36,8 +36,14 @@ var app = new Vue({
             return true
         },
         deleteItem: function(trick){
+            if(!trick){
+                console.error("delete message run without valid trick")
                 return
-    }
+            }
+            index = this.trickList.indexOf(trick)
+            this.trickList.splice(index, 1) // removes trick from list
+//            axios.post('http://localhost:5432/deleteItem/' + id)
+//            return timers._unrefActive(item);
         }
     }
 });
