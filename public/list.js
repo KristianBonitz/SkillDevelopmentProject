@@ -5,20 +5,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        activityList: [],
-        activity: {
-            id: 0,
-            name: "",
-            description: "",
-            objects: { count: 0, name: "" }, 
-            learningStage: 0, 
-            time: { hour: 0, minute: 0, second: 0 },
-            tags: [],
-            custom:{}
-        }
-    },
-    created: function(){
-        //this.restartClock();    
+        trickList: [],
     },
     mounted: function(){
         axios
@@ -27,6 +14,7 @@ var app = new Vue({
             for (var i = 0; i < response.data.length; i++) {
                 var aFormat = {
                     id: i,
+                    sysid: response.data[i].id,
                     name: response.data[i].name,
                     description: "",
                     objects: { count: response.data[i].object_count, name: response.data[i].object_name }, //none
@@ -34,11 +22,23 @@ var app = new Vue({
                     tags: [],
                     custom:{}
                 }
-                this.activityList.push(aFormat)
+                this.trickList.push(aFormat)
             }
         })
     },
-    methods: {
+    watch: {
+    },
+    methods:{
+        editItem: function(id){
+            return true
+        },
+        updateItem: function(id){
+            return true
+        },
+        deleteItem: function(trick){
+                return
+    }
+        }
     }
 });
 
@@ -55,14 +55,6 @@ var app = new Vue({
             tags: [],
             custom:{}
         }
-    },
-    created: function(){
-        //this.restartClock();    
-    },
-    mounted: function(){
-
-    },
-    methods: {
     }
 });
 

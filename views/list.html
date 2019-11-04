@@ -19,9 +19,22 @@
         <!-- 
             Timer will cycle through each of the tasks until it reaches the end.  
         -->
-        <trick-table
-        v-bind:trick-list='activityList'>
-        </trick-table>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Objects</th>
+                <th>Difficulty</th>
+                <th>Actions</th>
+            </tr>
+            <tr v-for='trick in trickList' :key='trick.id'>
+                <td>{{ trick.id }}</td>
+                <td>{{ trick.name }}</td>
+                <td>{{ trick.objects.count ? trick.objects.count + ' ' + trick.objects.name : '' }}</td>
+                <td>{{ trick.learningStage }}</td>
+                <td><button v-on:click='editItem(trick)'>Edit</button><button v-on:click='deleteItem(trick)'>Delete</button></td>
+            </tr>
+        </table>
 
     </div>
 
