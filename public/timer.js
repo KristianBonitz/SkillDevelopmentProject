@@ -45,7 +45,14 @@ var app = new Vue({
             }
         })
     },
+    computed: {
+        
+    },
     methods: {
+        formatTime: function(timeObject){
+            tObj = timeObject;
+            return tObj.hour ? tObj.hour.toString().padStart(2, '0') + ':' : '' + tObj.minute.toString().padStart(2, '0')  + ':' + tObj.second.toString().padStart(2, '0')
+        },
         startTime: function(){
             console.log('start');
             if(this.clock == false){
@@ -113,4 +120,3 @@ function learningTimes(stage){
         return { hour: 0, minute: 0, second: 0 };;
     }
 }
-

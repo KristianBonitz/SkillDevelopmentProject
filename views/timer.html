@@ -19,28 +19,37 @@
         <!-- 
             Timer will cycle through each of the tasks until it reaches the end.  
         -->
-        <activity-timer-display
-        v-bind:time='time'
-        v-bind:activity='activity'>
-        </activity-timer-display>
+        <div id='activity-timer'>
+            <div><h2>{{ activity.name }}</h2>
+              <span>Using: {{ activity.objects.count }} {{ activity.objects.name }}</span>
+                <div>
+                    <span>Tags: </span>
+                    <ul>
+                        <li v-for='tag in activity.tags'>{{ tag }}</li>
+                    </ul>
+                </div>
+            </div>
+            <h2>
+            {{ formatTime(time) }}
+            </h2>
+        </div>
 
-        <activity-timer-controls
-        v-bind:in-progress='inProgress'
-        v-bind:is-running='isRunning'
-        v-on:start='startTime'
-        v-on:stop='stopTime'
-        v-on:restart='restartClock'
-        v-on:skip='skipActivity'>
-        </activity-timer-controls>
+        <div>Timer Controls
+            <button v-on:click='skipActivity'>Skip</button>
+            <button v-on:click='restartClock'>Restart</button>
+            <button v-if='!inProgress' v-on:click='startTime'>Start</button>
+            <button v-if='inProgress' v-on:click='stopTime'>Stop</button>
+        </div>
         
         <!-- 
             The Task List lists each timing item - with the current activity highlighted. 
         -->
-        <activity-list
-        v-bind:activity-list='activityList'
-        v-bind:active-activity='activeActivity'>
-        </activity-list>
-        <div id='activity-add'></div>
+        <ol>
+            <li v-for='activity in activityList' v-bind:class='{ active: activeActivity == activity.id }'>
+                {{ activity.objects.count }}
+                {{ activity.objects.name }}
+                {{ activity.name }} - {{ formatTime(activity.time) }}</li>
+        </ol>
     </div>
 
     <script src="../public/vue/dist/vue.js"></script>
