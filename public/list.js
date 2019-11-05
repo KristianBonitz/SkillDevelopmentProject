@@ -41,9 +41,15 @@ var app = new Vue({
                 return
             }
             index = this.trickList.indexOf(trick)
-            this.trickList.splice(index, 1) // removes trick from list
-//            axios.post('http://localhost:5432/deleteItem/' + id)
-//            return timers._unrefActive(item);
+            this.trickList.splice(index, 1) 
+            // removes trick from list
+            axios({
+                method: 'post',
+                url: '/deleteTrick',
+                data: {
+                    id: trick.sysid,
+                }
+            });
         }
     }
 });

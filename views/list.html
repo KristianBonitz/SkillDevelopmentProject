@@ -40,11 +40,17 @@
 
     <div id="add" class="container">
         <h2>Add Tricks</h2>
-        <add-trick></add-trick>
+        <form action='/addTrick' method='post'>
+            Name (required): <input type='text' name='name'><br>
+            Object/s Used: <input type='text' name='objectName'><br>
+            Object Count: <input type='number' name='objectCount'><br>
+            Difficulty ( 0 - 10 ): <input type='number' name='difficulty'><br>
+            siteswap: <input type='text' name='siteswap'><br>
+            <input type='submit' value='Submit'>
+        </form>
     </div>
 
     <script src="../public/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="../public/list-components.js"></script>
     <script type="text/javascript" src="../public/list.js"></script>
 </body>

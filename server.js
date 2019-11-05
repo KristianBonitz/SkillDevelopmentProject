@@ -48,6 +48,22 @@ function createTrick(trick) {
     }
 }
 
+function deleteTrick(trickID) {
+    console.log("deleting trick " + trickID);
+    if (!trickID){
+        console.error("object is null");
+    }else{
+        text = "DELETE FROM activities WHERE id = $1";
+        values = [trickID];
+        pool.query(text, values, (err, result) => {
+            if( err ){
+                throw err;
+            }
+            return result;
+        }) 
+    }
+}
+
 app.get('/getData', (req, res) => {
     pool.query('SELECT * FROM activities', (err, result) => {
         if( err ){
@@ -102,8 +118,15 @@ app.get('/list', (req, res) => {
 });
 
 app.post('/addTrick', (req, res) => {
-    console.log('add trick - post request recieved')
-    console.log(req)
+    console.log('# add trick - post request recieved')
     output = createTrick(req.body)
     res.redirect('\list')
 });
+
+app.post('/deleteTrick', (req, res) => {
+    console.log('# delete trick - post request recieved')
+    output = deleteTrick(req.body.id)
+});
+
+
+
