@@ -22,6 +22,12 @@ app.get('/getData', (req, res) => {
     })
 });
 
+app.get('/getTrainingRoutines', (req, res) => {
+    config.getTrainingRoutines.then(output => {
+        res.status(200).json(output);
+    })
+});
+
 app.get('/', (req, res) => {
     var options = {
         root: path.join(__dirname, 'views/'),

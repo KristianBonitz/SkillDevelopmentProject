@@ -27,6 +27,27 @@ module.exports.getData = new Promise( function(res, err){
     })
 });
 
+module.exports.TrainingRoutines = new Promise( function(res, err){
+    pool.query('SELECT * FROM training_routines', (err, result) => {
+        if( err ){
+            throw err;
+        }
+        res(result.rows);
+    })
+});
+
+module.exports.getTrainingData = function getTrainingData(trainingRoutineID) {
+    var text = 'SELECT a.* FROM training_routines tr JOIN training_routines_items tri ON tr.id = tri.training_routine_id JOIN activities a ON a.id = tri.activity_id WHERE tr.id = $1'
+
+    return new Promise( function(res, err){
+        pool.query(text, trainingRoutineID, (err, result) => {
+            if( err ){
+                throw err;
+            }
+            console.log(result);
+            res(result.rows);
+        })
+}
 module.exports.createTrick = function(trick) {
     if (!trick){
         console.error("object is null");
