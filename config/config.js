@@ -8,6 +8,8 @@ const pool = new Pool({
     port: 4321,
 });
 
+//https://node-postgres.com/guides/project-structure
+
 pool.query('CREATE TABLE IF NOT EXISTS activities( id serial PRIMARY KEY, user_id VARCHAR(100), name VARCHAR(100) NOT NULL,  object_name VARCHAR(100), object_count INT, difficulty_grade INT, learning_stage INT, siteswap VARCHAR(100))',
     (err, res) => {
     console.log(err, res)
@@ -36,18 +38,16 @@ module.exports.TrainingRoutines = new Promise( function(res, err){
     })
 });
 
-module.exports.getTrainingData = function getTrainingData(trainingRoutineID) {
-    var text = 'SELECT a.* FROM training_routines tr JOIN training_routines_items tri ON tr.id = tri.training_routine_id JOIN activities a ON a.id = tri.activity_id WHERE tr.id = $1'
+module.exports.getTrainingData = function(trainingRoutineID) {
+    let text = 'SELECT a.* FROM training_routines tr JOIN training_routines_items tri ON tr.id = tri.training_routine_id JOIN activities a ON a.id = tri.activity_id WHERE tr.id = $1'
+    return pool.query(text, [trainingRoutineID], (err, result) => {
+        if( err ){
+            throw err;
+        }
+        //console.log(result);
+    })
+}   
 
-    return new Promise( function(res, err){
-        pool.query(text, trainingRoutineID, (err, result) => {
-            if( err ){
-                throw err;
-            }
-            console.log(result);
-            res(result.rows);
-        })
-}
 module.exports.createTrick = function(trick) {
     if (!trick){
         console.error("object is null");
@@ -86,4 +86,6 @@ module.exports.deleteTrick = function deleteTrick(trickID) {
         }) 
     }
 }
+
+module.exports.test = function(){return 'this is a test'};
 

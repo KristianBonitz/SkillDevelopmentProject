@@ -28,6 +28,13 @@ app.get('/getTrainingRoutines', (req, res) => {
     })
 });
 
+app.get('/getTrainingData', (req, res) => {
+    console.log("getTrainingData");
+    output = config.test;
+    console.log(output);
+    res.status(200).json(output);
+});
+
 app.get('/', (req, res) => {
     var options = {
         root: path.join(__dirname, 'views/'),
